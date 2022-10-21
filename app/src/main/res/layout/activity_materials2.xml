@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Materials">
+
+    <EditText
+        android:id="@+id/matirealEndDate"
+        android:layout_width="137dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="28dp"
+        android:ems="10"
+        android:inputType="date"
+        app:layout_constraintBottom_toBottomOf="@+id/matirealStartDate"
+        app:layout_constraintStart_toEndOf="@+id/matirealStartDate"
+        app:layout_constraintTop_toTopOf="@+id/matirealStartDate"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/matirealText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        android:text="Период"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.044"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/matirealStartDate"
+        android:layout_width="137dp"
+        android:layout_height="47dp"
+        android:layout_marginStart="20dp"
+        android:ems="10"
+        android:inputType="date"
+        app:layout_constraintBottom_toBottomOf="@+id/matirealText"
+        app:layout_constraintStart_toEndOf="@+id/matirealText"
+        app:layout_constraintTop_toTopOf="@+id/matirealText" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="403dp"
+        android:layout_height="540dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.444"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/matirealActionButton"
+        app:layout_constraintVertical_bias="0.831" />
+
+    <Button
+        android:id="@+id/matirealActionButton"
+        android:layout_width="176dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="28dp"
+        android:text="Расчитать за выбранный период"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/matirealStartDate" />
+
+    <Button
+        android:id="@+id/matirealActionButtonTotal"
+        android:layout_width="176dp"
+        android:layout_height="80dp"
+        android:text="Расчитать за всё время"
+        app:layout_constraintBottom_toBottomOf="@+id/matirealActionButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/matirealActionButton"
+        app:layout_constraintTop_toTopOf="@+id/matirealActionButton" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
