@@ -1,23 +1,21 @@
 package com.example.orionplus.view
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import com.example.orionplus.R
 import com.example.orionplus.databinding.ActivityAddressesBinding
 
 class Addresses : AppCompatActivity() {
-    lateinit var binding : ActivityAddressesBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityAddressesBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-        inin()
+        setContentView(R.layout.activity_addresses)
     }
 
-    fun inin(){
-        binding.apply {
-            
-        }
+    fun onClickNewAddress(view: View){
+        val onClick = Intent(this, NewAddressActivity::class.java)
+        startActivity(onClick)
     }
 }

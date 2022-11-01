@@ -14,6 +14,9 @@
         android:theme="@style/Theme.OrionPlus"
         tools:targetApi="31">
         <activity
+            android:name=".NewAddressActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.Addresses"
             android:exported="false" />
         <activity
