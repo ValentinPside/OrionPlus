@@ -1,25 +1,28 @@
 package com.example.orionplus.db
 
+import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
+import com.example.orionplus.model.AddressShift
 import com.example.orionplus.model.ConcretAddress
+import com.example.orionplus.model.StafObject
 
 class DbManager (val context : Context) {
 
-    val dbHelper = DbHelper(context)
+    private val dbHelper = DbHelper(context)
     var db : SQLiteDatabase? = null
 
     fun openDB(){
         db = dbHelper.writableDatabase
     }
 
-    fun insertToDB (addressName : String, Date : String, bitum : Int,
-                    perchatki : Int, coldAsf : Int, benzin : Int,
-                    disel : Int, lopSov : Int, lopSht : Int){
+    fun insertToDB (addressName : String, date : String, bitum : Short,
+                    perchatki : Short, coldAsf : Short, benzin : Short,
+                    disel : Short, lopSov : Short, lopSht : Short){
         val values = ContentValues().apply {
             put(AddressDB.ADDRESS_NAME, addressName)
-            put(AddressDB.SHIFT_DATE, Date)
+            put(AddressDB.SHIFT_DATE, date)
             put(AddressDB.BITUM, bitum)
             put(AddressDB.PERCHATKI, perchatki)
             put(AddressDB.COLDASF, coldAsf)
@@ -31,13 +34,36 @@ class DbManager (val context : Context) {
         db?.insert(AddressDB.TABLE_NAME, null, values)
     }
 
+    @SuppressLint("Range")
     fun readDB() : ArrayList<ConcretAddress>{
         val addressList = ArrayList<ConcretAddress>()
-        val cursor  = db?.query(AddressDB.TABLE_NAME, null, null, null, null, null, null)
-        with(cursor){
-            while(this?.moveToNext()!!){
+        var addressName : String
+        var addressShiftList  = ArrayList<AddressShift>()
 
+        val cursor  = db?.query(AddressDB.TABLE_NAME, null, null, null, null, null, null)
+        while(cursor?.moveToNext()!!){
+            addressName = cursor.getString(cursor.getColumnIndex(AddressDB.ADDRESS_NAME))
+            while(addressName == cursor.getString(cursor.getColumnIndex(AddressDB.ADDRESS_NAME))){
+                var date = cursor.getString(cursor.getColumnIndex(AddressDB.SHIFT_DATE))
+                var bitum  = cursor.getShort(cursor.getColumnIndex(AddressDB.BITUM))
+                var perchatki = cursor.getShort(cursor.getColumnIndex(AddressDB.PERCHATKI))
+                var coldAsf = cursor.getShort(cursor.getColumnIndex(AddressDB.COLDASF))
+                var benzin = cursor.getShort(cursor.getColumnIndex(AddressDB.BENZIN))
+                var disel = cursor.getShort(cursor.getColumnIndex(AddressDB.DISEL))
+                var lopSov = cursor.getShort(cursor.getColumnIndex(AddressDB.LOPSOV))
+                var lopSht = cursor.getShort(cursor.getColumnIndex(AddressDB.LOPSHT))
+                var stafObectList  = ArrayList<StafObject>()
+                stafObectList.add(StafObject(AddressDB.BITUM, bitum))
+                stafObectList.add(StafObject(AddressDB.PERCHATKI, perchatki))
+                stafObectList.add(StafObject(AddressDB.COLDASF, coldAsf))
+                stafObectList.add(StafObject(AddressDB.BENZIN, benzin))
+                stafObectList.add(StafObject(AddressDB.DISEL, disel))
+                stafObectList.add(StafObject(AddressDB.LOPSOV, lopSov))
+                stafObectList.add(StafObject(AddressDB.LOPSHT, lopSht))
+                addressShiftList.add(AddressShift(date, stafObectList))
+                if(cursor?.moveToNext()!!) cursor.moveToNext()
             }
+            addressList.add(ConcretAddress(addressName, addressShiftList))
         }
         return addressList
     }

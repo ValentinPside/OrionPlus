@@ -1,5 +1,5 @@
 package com.example.orionplus.model
 
-data class ConcretAddress(var name : String, var shift : ArrayList<AddressShift>) {
+data class ConcretAddress(var name : String, var shifts : ArrayList<AddressShift>) {
 
 }

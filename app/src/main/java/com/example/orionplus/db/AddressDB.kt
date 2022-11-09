@@ -4,8 +4,8 @@ import android.provider.BaseColumns
 
 object AddressDB : BaseColumns {
     const val TABLE_NAME = "address_db"
-    const val ADDRESS_NAME = "address_db"
-    const val SHIFT_DATE = "address_db"
+    const val ADDRESS_NAME = "Адрес"
+    const val SHIFT_DATE = "Дата"
     const val BITUM : String = "Битум"
     const val PERCHATKI : String = "Перчатки"
     const val COLDASF : String = "Хол. асфальт"
@@ -21,13 +21,13 @@ object AddressDB : BaseColumns {
             "${BaseColumns._ID} INTEGER PRIMARY KEY," +
             "$ADDRESS_NAME TEXT," +
             "$SHIFT_DATE TEXT," +
-            "$BITUM INTEGER," +
-            "$PERCHATKI INTEGER," +
-            "$COLDASF INTEGER," +
-            "$BENZIN INTEGER," +
-            "$DISEL INTEGER," +
-            "$LOPSOV INTEGER," +
-            "$LOPSHT INTEGER)"
+            "$BITUM SHORT," +
+            "$PERCHATKI SHORT," +
+            "$COLDASF SHORT," +
+            "$BENZIN SHORT," +
+            "$DISEL SHORT," +
+            "$LOPSOV SHORT," +
+            "$LOPSHT SHORT)"
 
     const val DELETE_TABLE = "DROP TABLE IF EXISTS $TABLE_NAME"
 }
