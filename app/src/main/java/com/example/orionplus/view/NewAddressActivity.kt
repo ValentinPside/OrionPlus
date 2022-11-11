@@ -5,37 +5,33 @@ import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.EditText
 import android.widget.TextView
 import com.example.orionplus.R
+import com.example.orionplus.databinding.ActivityNewAddressBinding
+import com.example.orionplus.db.AddressDB
+import com.example.orionplus.db.DbManager
 import com.example.orionplus.model.AddressShift
 import com.example.orionplus.model.ConcretAddress
 
 class NewAddressActivity : AppCompatActivity() {
 
-    var pref : SharedPreferences ? = null
-    private lateinit var shift : ArrayList<AddressShift>
-    private var adr : ConcretAddress  = ConcretAddress("", shift)
+    private val dbManager = DbManager(this)
+    lateinit var addressName : EditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_new_address)
-        pref = getSharedPreferences("ADDRESSES", Context.MODE_PRIVATE)
+        var addressName = findViewById<EditText>(R.id.newAddressName)
     }
 
     fun onClickCreateAddresses(view: View){
-        var addressNameView : EditText =  findViewById(R.id.newAddressName)
-        var addressName : String = addressNameView.editableText.toString()
-        adr?.name = addressName
-        saveNewAddress(adr)
+        AddressDB.tableName = addressName.text.toString()
+        dbManager.openDB()
+        dbManager.insertToDB("", 0, 0, 0, 0, 0, 0, 0)
         val onClick = Intent(this, Addresses::class.java)
         startActivity(onClick)
-    }
-
-    private fun saveNewAddress(address : ConcretAddress){
-        val editor = pref?.edit()
-        editor?.putString(adr?.name, adr?.name)
-        editor?.apply()
     }
 }

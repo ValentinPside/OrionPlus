@@ -3,8 +3,7 @@ package com.example.orionplus.db
 import android.provider.BaseColumns
 
 object AddressDB : BaseColumns {
-    const val TABLE_NAME = "address_db"
-    const val ADDRESS_NAME = "Адрес"
+    var tableName = "" //название адреса
     const val SHIFT_DATE = "Дата"
     const val BITUM : String = "Битум"
     const val PERCHATKI : String = "Перчатки"
@@ -17,9 +16,8 @@ object AddressDB : BaseColumns {
     const val DATABASE_VERSION = 1
     const val DATABASE_NAME = "Addresses.db"
 
-    const val CREATE_TABLE = "CREATE TABLE IF NOT EXISTS $TABLE_NAME (" +
+    var createTable = "CREATE TABLE IF NOT EXISTS $tableName (" +
             "${BaseColumns._ID} INTEGER PRIMARY KEY," +
-            "$ADDRESS_NAME TEXT," +
             "$SHIFT_DATE TEXT," +
             "$BITUM SHORT," +
             "$PERCHATKI SHORT," +
@@ -29,5 +27,5 @@ object AddressDB : BaseColumns {
             "$LOPSOV SHORT," +
             "$LOPSHT SHORT)"
 
-    const val DELETE_TABLE = "DROP TABLE IF EXISTS $TABLE_NAME"
+    var deleteTable = "DROP TABLE IF EXISTS $tableName"
 }

@@ -17,11 +17,10 @@ class DbManager (val context : Context) {
         db = dbHelper.writableDatabase
     }
 
-    fun insertToDB (addressName : String, date : String, bitum : Short,
+    fun insertToDB (date : String, bitum : Short,
                     perchatki : Short, coldAsf : Short, benzin : Short,
                     disel : Short, lopSov : Short, lopSht : Short){
         val values = ContentValues().apply {
-            put(AddressDB.ADDRESS_NAME, addressName)
             put(AddressDB.SHIFT_DATE, date)
             put(AddressDB.BITUM, bitum)
             put(AddressDB.PERCHATKI, perchatki)
@@ -31,7 +30,7 @@ class DbManager (val context : Context) {
             put(AddressDB.LOPSOV, lopSov)
             put(AddressDB.LOPSHT, lopSht)
         }
-        db?.insert(AddressDB.TABLE_NAME, null, values)
+        db?.insert(AddressDB.tableName, null, values)
     }
 
     @SuppressLint("Range")
@@ -40,30 +39,27 @@ class DbManager (val context : Context) {
         var addressName : String
         var addressShiftList  = ArrayList<AddressShift>()
 
-        val cursor  = db?.query(AddressDB.TABLE_NAME, null, null, null, null, null, null)
+        val cursor  = db?.query(AddressDB.tableName, null, null, null, null, null, null)
         while(cursor?.moveToNext()!!){
-            addressName = cursor.getString(cursor.getColumnIndex(AddressDB.ADDRESS_NAME))
-            while(addressName == cursor.getString(cursor.getColumnIndex(AddressDB.ADDRESS_NAME))){
-                var date = cursor.getString(cursor.getColumnIndex(AddressDB.SHIFT_DATE))
-                var bitum  = cursor.getShort(cursor.getColumnIndex(AddressDB.BITUM))
-                var perchatki = cursor.getShort(cursor.getColumnIndex(AddressDB.PERCHATKI))
-                var coldAsf = cursor.getShort(cursor.getColumnIndex(AddressDB.COLDASF))
-                var benzin = cursor.getShort(cursor.getColumnIndex(AddressDB.BENZIN))
-                var disel = cursor.getShort(cursor.getColumnIndex(AddressDB.DISEL))
-                var lopSov = cursor.getShort(cursor.getColumnIndex(AddressDB.LOPSOV))
-                var lopSht = cursor.getShort(cursor.getColumnIndex(AddressDB.LOPSHT))
-                var stafObectList  = ArrayList<StafObject>()
-                stafObectList.add(StafObject(AddressDB.BITUM, bitum))
-                stafObectList.add(StafObject(AddressDB.PERCHATKI, perchatki))
-                stafObectList.add(StafObject(AddressDB.COLDASF, coldAsf))
-                stafObectList.add(StafObject(AddressDB.BENZIN, benzin))
-                stafObectList.add(StafObject(AddressDB.DISEL, disel))
-                stafObectList.add(StafObject(AddressDB.LOPSOV, lopSov))
-                stafObectList.add(StafObject(AddressDB.LOPSHT, lopSht))
-                addressShiftList.add(AddressShift(date, stafObectList))
-                if(cursor?.moveToNext()!!) cursor.moveToNext()
-            }
-            addressList.add(ConcretAddress(addressName, addressShiftList))
+            var date = cursor.getString(cursor.getColumnIndex(AddressDB.SHIFT_DATE))
+            var bitum  = cursor.getShort(cursor.getColumnIndex(AddressDB.BITUM))
+            var perchatki = cursor.getShort(cursor.getColumnIndex(AddressDB.PERCHATKI))
+            var coldAsf = cursor.getShort(cursor.getColumnIndex(AddressDB.COLDASF))
+            var benzin = cursor.getShort(cursor.getColumnIndex(AddressDB.BENZIN))
+            var disel = cursor.getShort(cursor.getColumnIndex(AddressDB.DISEL))
+            var lopSov = cursor.getShort(cursor.getColumnIndex(AddressDB.LOPSOV))
+            var lopSht = cursor.getShort(cursor.getColumnIndex(AddressDB.LOPSHT))
+            var stafObectList  = ArrayList<StafObject>()
+            stafObectList.add(StafObject(AddressDB.BITUM, bitum))
+            stafObectList.add(StafObject(AddressDB.PERCHATKI, perchatki))
+            stafObectList.add(StafObject(AddressDB.COLDASF, coldAsf))
+            stafObectList.add(StafObject(AddressDB.BENZIN, benzin))
+            stafObectList.add(StafObject(AddressDB.DISEL, disel))
+            stafObectList.add(StafObject(AddressDB.LOPSOV, lopSov))
+            stafObectList.add(StafObject(AddressDB.LOPSHT, lopSht))
+            addressShiftList.add(AddressShift(date, stafObectList))
+            if(cursor?.moveToNext()!!) cursor.moveToNext()
+            addressList.add(ConcretAddress(AddressDB.tableName, addressShiftList))
         }
         return addressList
     }
