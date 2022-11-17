@@ -9,11 +9,11 @@ import com.example.orionplus.databinding.AddressItemBinding
 import com.example.orionplus.model.ConcretAddress
 
 class AddressAdapter : RecyclerView.Adapter<AddressAdapter.AddressHolder>(){
-    var addressList = ArrayList<ConcretAddress>()
+    var addressList = ArrayList<String>()
     class AddressHolder(item : View): RecyclerView.ViewHolder(item){
         val binding = AddressItemBinding.bind(item)
-        fun bind(address : ConcretAddress) = with (binding){
-
+        fun bind(address : String) = with (binding){
+            streetName.text = address
         }
     }
 
@@ -30,7 +30,7 @@ class AddressAdapter : RecyclerView.Adapter<AddressAdapter.AddressHolder>(){
         return addressList.size
     }
 
-    fun addConcretAddress(address : ConcretAddress){
+    fun addAddressName(address : String){
         addressList.add(address)
         notifyDataSetChanged()
     }
