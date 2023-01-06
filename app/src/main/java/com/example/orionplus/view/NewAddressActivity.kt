@@ -24,7 +24,7 @@ class NewAddressActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_new_address)
-        var addressName = findViewById<EditText>(R.id.newAddressName)
+        //var addressName = findViewById<EditText>(R.id.newAddressName)
     }
 
     fun onClickCreateAddresses(view: View){

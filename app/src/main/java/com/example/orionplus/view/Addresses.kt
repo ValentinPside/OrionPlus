@@ -24,7 +24,7 @@ class Addresses : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityAddressesBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        init()
+        //init()
     }
 
     fun onClickNewAddress(view: View){
